@@ -1,0 +1,65 @@
+<odoo>
+  <data>
+
+    <record id="salary_deduction_form" model="ir.ui.view">
+        <field name="name">salary deduction</field>
+        <field name="model">hr.deduction</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <!--<button string="Save" name="action_save" type="object"/>-->
+                    <button string="Confirm" name="action_confirm" type="object" state="draft" class="oe_highlight" icon="gtk-yes"
+                            attrs="{'invisible':[('state','=','confirm')]}"/>
+                    <!--<button string="Cancel" class="btn-default" special="cancel"/>-->
+                   <field name="state" widget="statusbar" statusbar_visible="draft,"
+                               statusbar_colors='{"confirm":"blue","draft":"red"}'/>
+                </header>
+                <sheet>
+                  <group>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="ded_date"/>
+                        <field name="note"/>
+                    </group>
+                    <group>
+                        <field name="ded_val"/>
+                    </group>
+                  </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="salary_deduction_tree" model="ir.ui.view">
+        <field name="name">salary deduction</field>
+        <field name="model">hr.deduction</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="code"/>
+                <field name="employee_id"/>
+                <field name="ded_date"/>
+                <field name="ded_val"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="seq_ded" model="ir.sequence">
+      <field name="name">sequence</field>
+      <field name="code">hr.deduction</field>
+      <field name="prefix">DED</field>
+      <field name="padding">4</field>
+      <field eval="1" name="number_increment"/>
+    </record>
+
+    <record id="salary_deduction_action" model="ir.actions.act_window">
+      <field name="name">Salary Deduction</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.deduction</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="salary_deduction_menue" name="Salary Deduction" parent="hr_payroll.menu_hr_payroll_root" action="salary_deduction_action" sequence="10"/>
+  </data>
+</odoo>
